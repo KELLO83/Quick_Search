@@ -1,5 +1,7 @@
 # Quick_Search
 
+### Dependency
+pip install -r requirements.txt 설치 필요.....
 
 ---
 인공지능 처리부분 
