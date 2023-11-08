@@ -126,7 +126,7 @@ class Mulit_detect():
         
 
 if __name__ == "__main__":
-    print("Testing.......")
+    print("Testing........")
     img = "C:/Users/user/Desktop/test/testimg.jpg"
     
     run = Mulit_detect(img)
