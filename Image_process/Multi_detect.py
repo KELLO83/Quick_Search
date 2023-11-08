@@ -10,9 +10,9 @@ import time
 class Mulit_detect():
     def __init__(self,img) -> None:
         self.img = img 
-        self.model_path  = ["../Quick_Search/Model/Cap.pt",
-                            "../Quick_Search/Model/Clothes.pt",
-                            "../Quick_Search/Model/Shoes.pt"]
+        self.model_path  = ["C:/Users/user/yolov5/yolov5/runs/train/shoose_train_res6/weights/best.pt",
+                            "C:/Users/user/yolov5/yolov5/runs/train/cap/weights/best.pt",
+                            "C:/Users/user/yolov5/yolov5/runs/train/clothes_only/weights/best.pt"]
         
         for i in range(len(self.model_path)):
             if not os.path.isfile(self.model_path[i]):
@@ -127,7 +127,7 @@ class Mulit_detect():
 
 if __name__ == "__main__":
     print("Testing.......")
-    img = "C:/Users/user/Desktop/test/testimg.jpg"
+    img = "C:/Users/user/yolov5/yolov5/myProject/detect_target.jpg"
     
     run = Mulit_detect(img)
     run.detect_run()

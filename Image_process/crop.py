@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # key : 0 , value : [208.87770080566406, 336.2223815917969, 922.2138061523438, 1004.7623901367188]
     #key : 1 , value : [348.85107421875, 425.29705810546875, 877.2025146484375, 971.7975463867188]
     # n[0, 0.581, 0.3489795918367347, 0.53, 0.2108843537414966]
-    crop_object = crop(cv2.imread("C:/Users/user/Destop/test/testimg.jpg"), "C:/Users/user/Quick_Search/label_result/0/output.txt")
+    crop_object = crop(cv2.imread("testimg.jpg"), "label.txt")
     crop_object.crop()
 
     print("Crop success!")
