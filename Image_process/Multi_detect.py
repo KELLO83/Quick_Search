@@ -6,13 +6,14 @@ import sys
 import cv2
 import numpy as np
 import time
+import matplotlib.pyplot as plt
 
 class Mulit_detect():
-    def __init__(self,img) -> None:
+    def __init__(self,img,productname:str) -> None:
         self.img = img 
-        self.model_path  = ["C:/Users/user/yolov5/yolov5/runs/train/shoose_train_res6/weights/best.pt",
-                            "C:/Users/user/yolov5/yolov5/runs/train/cap/weights/best.pt",
-                            "C:/Users/user/yolov5/yolov5/runs/train/clothes_only/weights/best.pt"]
+        self.model_path  = ["Model/Cap.pt",
+                            "Model/Shoes.pt",
+                            "Model/Clothes.pt"]
         
         for i in range(len(self.model_path)):
             if not os.path.isfile(self.model_path[i]):
@@ -36,6 +37,7 @@ class Mulit_detect():
         self.object_location_dict ={}
         self.classification = []
         self.confidence_vulnerability = []
+        self.productname = productname
         
            
     def detect_run(self) :
@@ -55,7 +57,9 @@ class Mulit_detect():
             print("locate type {}".format(type(locate)))
             
             self.DataFrame = pd.concat([self.DataFrame,locate]).reset_index(drop=True)
-        print("결과출력......")
+        #FILTER 불러서 FILTER(DATAFRATME,self.product_name) -> DATAFRAME SELF.DATAFRAME에 저장 DATAFRAME[]  미현아 요기서 필터링해주면됨 filter.py를 만들어서 filter(DATAFRAME,product_name) -> DATAFRAME 
+        #으로 filter반환값은 productname에있는것만 다시 DataFraem으로 반환해주면됨
+        print("DataFrame결과출력......")
         print(self.DataFrame)
         self.get_object_location()
         return self.DataFrame
@@ -103,8 +107,9 @@ class Mulit_detect():
                 break
             
         
-        buffer.to_csv("{}/output.txt".format(save_path),index=False,header=False)
-        self.bound_box()
+        buffer.to_csv("{}/output.txt".format(save_path),index=False,header=False,sep=" ")
+        
+        self.bound_box() # Test용 코드입니다 시각화박스가 잘그렸졌는지확인 실제 적용시 주석처리해주세요
         print("DEBUG")
         
     def bound_box(self):
@@ -113,23 +118,20 @@ class Mulit_detect():
         for i in range(len(self.object_location)):
             buffer = list(map(lambda x : int(float(x)), self.object_location[i]))
             convert_type.append(buffer)
-        print(convert_type)
         
-
         for i in range(len(convert_type)):
             cv2.rectangle(img,(convert_type[i][0],convert_type[i][2]),(convert_type[i][1],convert_type[i][3]),(0,0,255),2) 
             cv2.putText(img,self.classification[i],(convert_type[i][0],convert_type[i][2]-10),cv2.FONT_HERSHEY_SIMPLEX,0.9,color=(0,0,255),thickness=2)
-        
-        cv2.imshow("test",img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        
 
+        img_rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+        plt.imshow(img_rgb) 
+        plt.show()
+        
 if __name__ == "__main__":
     print("Testing.......")
-    img = "C:/Users/user/yolov5/yolov5/myProject/detect_target.jpg"
+    img = "Image_process/detect_target.jpg"
     
-    run = Mulit_detect(img)
+    run = Mulit_detect(img,'Shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
     run.save()
     

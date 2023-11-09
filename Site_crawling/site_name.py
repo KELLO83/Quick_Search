@@ -13,7 +13,7 @@ class ProductCrawler:
 
         # Firefox 웹 드라이버 초기화
         self.driver = webdriver.Firefox(options=self.firefox_options)
-
+        
         # 사이트별 정보 및 요소 이름 정의
         self.websites_data = {
             "크림": {
