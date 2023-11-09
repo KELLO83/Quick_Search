@@ -7,14 +7,16 @@ import cv2
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+import filter
 
 class Mulit_detect():
     def __init__(self,img,productname:str) -> None:
         self.img = img 
+
         self.model_path  = ["Model/Cap.pt",
                             "Model/Shoes.pt",
                             "Model/Clothes.pt"]
-        
+
         for i in range(len(self.model_path)):
             if not os.path.isfile(self.model_path[i]):
                 print("Model {} 존재하지않습니다".format(self.model_path[i]))
@@ -57,8 +59,10 @@ class Mulit_detect():
             print("locate type {}".format(type(locate)))
             
             self.DataFrame = pd.concat([self.DataFrame,locate]).reset_index(drop=True)
-        #FILTER 불러서 FILTER(DATAFRATME,self.product_name) -> DATAFRAME SELF.DATAFRAME에 저장 DATAFRAME[]  미현아 요기서 필터링해주면됨 filter.py를 만들어서 filter(DATAFRAME,product_name) -> DATAFRAME 
-        #으로 filter반환값은 productname에있는것만 다시 DataFraem으로 반환해주면됨
+
+        # 필터링
+        self.DataFrame = filter.filter_run(self.productname, self.DataFrame)
+
         print("DataFrame결과출력......")
         print(self.DataFrame)
         self.get_object_location()
@@ -130,8 +134,8 @@ class Mulit_detect():
 if __name__ == "__main__":
     print("Testing.......")
     img = "Image_process/detect_target.jpg"
-    
-    run = Mulit_detect(img,'Shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
+
+    run = Mulit_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
     run.save()
     
