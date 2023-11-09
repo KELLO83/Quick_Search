@@ -1,9 +1,24 @@
 import os.path
 import cv2
 import numpy as np
+import tkinter as tk
+from tkinter import messagebox
 
 class draw:
-    def user_draw_box(self,event,x,y) -> list:
+
+    def __init__(self,img : object) -> None:
+            self.img = img
+
+            self.save_path = ""
+            
+            self.rect_endpoint = []
+            self.drawing = False
+            
+            self.img_to_show = None
+
+            self.user_draw_location = []
+
+    def user_draw_box(self,event,x,y,flags,param) -> list:
 
         if event == cv2.EVENT_LBUTTONDOWN:
             self.drawing = True
@@ -89,3 +104,10 @@ class draw:
             else:
                 messagebox.showinfo("showinfo", "그림을 저장하지 않습니다.")
                 return False
+            
+
+                   
+if __name__ == "__main__":
+    PATH = "Image_process/detect_target.jpg"
+    draw = draw(cv2.imread(PATH))
+    draw.draw_run()
