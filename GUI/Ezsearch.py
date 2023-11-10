@@ -8,7 +8,7 @@ from PyQt5.QtCore import QUrl
 # UI 파일 로드
 ui_file = "GUI2.ui"
 Ui_Form, QtBaseClass = uic.loadUiType(ui_file)
-
+     
 # Class 생성
 class MyWindow(QDialog, Ui_Form):
     def __init__(self):
@@ -26,36 +26,25 @@ class MyWindow(QDialog, Ui_Form):
 
         # 이미지 업로드 버튼 이벤트 연결
         self.image_upload_button = self.findChild(QPushButton, 'image_upload')
-        if self.image_upload_button:
-            self.image_upload_button.clicked.connect(self.upload_image)
-        else:
-            print("Warning: 'image_upload' button not found in the UI form.")
+        self.image_upload_button.clicked.connect(self.upload_image)
+       
 
         # 이미지를 표시할 QLabel
         self.image_label = self.findChild(QLabel, 'image')
-        if not self.image_label:
-            print("Warning: 'image' label not found in the UI form.")
 
         # 이미지 파일 경로를 저장할 변수
         self.image_path = ""
 
-        # QLabel for displaying image path
+        # 파일 디렉터리 패스 
         self.test2_label = self.findChild(QLabel, 'test2')
-        if not self.test2_label:
-            print("Warning: 'test2' label not found in the UI form.")
-
+        
         # Category ComboBox
         self.category_combobox = self.findChild(QComboBox, 'category')
-        if not self.category_combobox:
-            print("Warning: 'category' ComboBox not found in the UI form.")
-        else:
-            self.category_combobox.currentIndexChanged.connect(self.update_category)
+        self.category_combobox.currentIndexChanged.connect(self.update_category)
 
         # QLabel for displaying category
         self.test1_label = self.findChild(QLabel, 'test1')
-        if not self.test1_label:
-            print("Warning: 'test1' label not found in the UI form.")
-
+       
         # 이미지 URL을 저장할 변수
         self.image_url = QUrl("https://cdn.011st.com/11dims/resize/320/11src/dl/v2/3/7/5/5/4/6/bTGgM/3053375546_150614628_05.jpg")
 
@@ -63,9 +52,7 @@ class MyWindow(QDialog, Ui_Form):
         self.search_button = self.findChild(QPushButton, 'search_button')
         if self.search_button:
             self.search_button.clicked.connect(self.search_image)
-        else:
-            print("Warning: 'search_button' button not found in the UI form.")
-
+        
         # QNetworkAccessManager
         self.manager = QNetworkAccessManager()
 
@@ -119,7 +106,7 @@ class MyWindow(QDialog, Ui_Form):
         elif selected_category == '하의':
             self.category = 'bottom'
         elif selected_category == '모자':
-            self.category = 'hat'
+            self.category = 'cap'
         else:
             self.category = 'unknown'
 
