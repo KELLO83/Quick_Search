@@ -8,14 +8,10 @@ class draw:
 
     def __init__(self,img : object) -> None:
             self.img = img
-
             self.save_path = ""
-            
             self.rect_endpoint = []
             self.drawing = False
-            
             self.img_to_show = None
-
             self.user_draw_location = []
 
     def user_draw_box(self,event,x,y,flags,param) -> list:
@@ -109,9 +105,9 @@ class draw:
             
 
                    
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     PATH = "Image_process/detect_target.jpg"
     draw = draw(cv2.imread(PATH))
     xylist = draw.draw_run()
 
-    print("결과 2차원 리스트 : ",xylist)
+    print("결과 2차원 리스트 : ",xylist)"""
