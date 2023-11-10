@@ -82,6 +82,8 @@ class draw:
             
         cv2.destroyAllWindows()
 
+        return self.user_draw_location
+
     def show_exit(self,args) -> bool:
         root = tk.Tk()
         root.withdraw()
@@ -110,4 +112,6 @@ class draw:
 if __name__ == "__main__":
     PATH = "Image_process/detect_target.jpg"
     draw = draw(cv2.imread(PATH))
-    draw.draw_run()
+    xylist = draw.draw_run()
+
+    print("결과 2차원 리스트 : ",xylist)

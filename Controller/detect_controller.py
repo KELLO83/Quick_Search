@@ -1,18 +1,22 @@
-import os
-import Multi_detect as det
-
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append("C/Users/user/Quick_Search/Image_process")
+print(sys.path)
+#from Image_process import Multi_detect as det
+import Image_process.Multi_detect
 # 객체 탐지 컨트롤러
-class detect_controller:
+# class detect_con:
 
-    def detection(img_path):
-        detect = det.detect_class(img_path)
-        detect.detect_run()
-        print(detect.get_object_all_locatin)
-        print(detect.get_vulnerability)
+#     def test2_detection(img_path, classname):
+#         run = det.Multi_detect(img_path, classname)
+#         run.detect_run()
+#         run.save()
 
-        for key,value in detect.object_location_dict.items():
-            print("key : {} , value : {}".format(key,value))
 
-        detect.get_bound_box()
-        detect.draw_run()
-        detect.get_label_location()
+# run = det.Multi_detect("Image_process/detect_target.jpg", "shoes")
+# run.detect_run()
+# run.save()
+
+run = Image_process.Multi_detect.Multi_detect("Image_process/detect_target.jpg",'shoes')
+run.detect_run()
+run.save()
