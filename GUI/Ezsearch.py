@@ -4,9 +4,10 @@ from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt5.QtCore import QUrl
+import Controller.gui_controller
 
 # UI 파일 로드
-ui_file = "GUI2.ui"
+ui_file = "GUI/GUI2.ui"
 Ui_Form, QtBaseClass = uic.loadUiType(ui_file)
 
 # Class 생성
@@ -84,6 +85,7 @@ class MyWindow(QDialog, Ui_Form):
             self.image_label.setPixmap(pixmap)
             self.image_path = fname
             self.test2_label.setText(self.image_path)
+        
 
     # ========== 이미지 URL에서 이미지 로드 ==========
     def load_image_from_url(self, url):
@@ -105,8 +107,12 @@ class MyWindow(QDialog, Ui_Form):
     # ========== 이미지 검색 ==========
     def search_image(self):
         # 검색 버튼을 눌렀을 때 이미지 URL을 이용하여 이미지를 로드
-        self.load_image_from_url(self.image_url)
-
+        # self.load_image_from_url(self.image_url)
+        flag = Controller.gui_controller.get_gui_controller(self.image_path,self.category) #GUI 컨틀롤러 호출 <송준현>
+        
+        # flag  true 이면 정상실행 false이면 다시 실행 일단 보류
+        
+        
     # ========== Category 업데이트 ==========
     def update_category(self):
         selected_category = self.category_combobox.currentText()
@@ -119,7 +125,7 @@ class MyWindow(QDialog, Ui_Form):
         elif selected_category == '하의':
             self.category = 'bottom'
         elif selected_category == '모자':
-            self.category = 'hat'
+            self.category = 'cap'
         else:
             self.category = 'unknown'
 

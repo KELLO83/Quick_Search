@@ -1,5 +1,5 @@
 import os
-import Multi_detect as det
+import Image_process.Multi_detect as det
 
 # 객체 탐지 컨트롤러
 class detect_controller:
