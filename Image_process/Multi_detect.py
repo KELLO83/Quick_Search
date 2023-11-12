@@ -117,7 +117,7 @@ class Multi_detect():
         
         buffer.to_csv("{}/output.txt".format(save_path),index=False,header=False,sep=" ")
         
-        self.bound_box() # Test용 코드입니다 시각화박스가 잘그렸졌는지확인 실제 적용시 주석처리해주세요
+        # self.bound_box() # Test용 코드입니다 시각화박스가 잘그렸졌는지확인 실제 적용시 주석처리해주세요
         print("DEBUG")
         
     def bound_box(self):

@@ -1,6 +1,4 @@
-import sys, os, cv2
-# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-# sys.path.append("C/Users/user/Quick_Search/Image_process")
+import os, cv2
 import Image_process.Multi_detect as det
 import Image_process.draw as dr
 
@@ -11,13 +9,18 @@ class detect_con:
         self.productname = productname
 
     # detect 결과 label_result 폴더에 output.txt 생성(좌표값)
-    def detection(img_path, classname):
-        run = det.Multi_detect(img_path, classname)
+    def detection(self):
+        run = det.Multi_detect(self.img_path, self.productname)
         run.detect_run()
         run.save()
 
-    def user_draw(img_path, txt_path):
-        draw = dr.draw(cv2.imread(img_path))
+    def user_draw(self):
+        txt_path = "label_result/output.txt"
+        if not os.path.isfile(txt_path):
+            print("output.txt가 존재하지 않습니다.")
+            raise FileExistsError
+        
+        draw = dr.draw(cv2.imread(self.img_path))
         xylist = draw.draw_run()
         result_list = []
 
@@ -44,6 +47,11 @@ class detect_con:
                     file.write(result_list[i][j])
                     file.write(" ")
                 file.write("\n")
-
+                
+def call(img_path,category):
+    run = detect_con(img_path,category)
+    run.detection()
+    run.user_draw()
+    
 if __name__ == "__main__":
     pass

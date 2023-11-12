@@ -10,7 +10,7 @@ def get_gui_controller(img_path,category):
     
     if button == QMessageBox.Yes:
         print("검색을 시작합니다")
-        Controller.main_controller.run(img_path,category)
+        Controller.main_controller.get_imageinformation(img_path,category)
         
     else:
         print("검색을 취소합니다")

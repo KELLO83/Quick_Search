@@ -11,7 +11,6 @@ import os
 
 def main():
     sys.path.append(os.getcwd()) 
-    print("sytem path : ",sys.path)
     from GUI import Ezsearch
     app = QApplication(sys.argv)
     myWindow = Ezsearch.MyWindow()
