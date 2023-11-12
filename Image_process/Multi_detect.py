@@ -7,9 +7,9 @@ import cv2
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-import filter
+from Image_process import filter
 
-class Mulit_detect():
+class Multi_detect():
     def __init__(self,img,productname:str) -> None:
         self.img = img 
 
@@ -100,16 +100,20 @@ class Mulit_detect():
         else:
             os.mkdir("./label_result")
 
-        count = 0
-        while True:
-            if os.path.isdir("./label_result/{}".format(count)):
-                count += 1
-            else:
-                print("Generate Folder : ./label_result/{}".format(count))
-                os.makedirs("./label_result/{}".format(count))
-                save_path = "./label_result/{}/".format(count)
-                break
-            
+
+        save_path = "./label_result/"
+
+        # label_result 안에 폴더 만들던 코드
+        #count = 0
+        #while True:
+        #    if os.path.isdir("./label_result/{}".format(count)):
+        #        count += 1
+        #    else:
+        #        print("Generate Folder : ./label_result/{}".format(count))
+        #        os.makedirs("./label_result/{}".format(count))
+        #        save_path = "./label_result/{}/".format(count)
+        #        break
+      
         
         buffer.to_csv("{}/output.txt".format(save_path),index=False,header=False,sep=" ")
         
@@ -131,14 +135,14 @@ class Mulit_detect():
         plt.imshow(img_rgb) 
         plt.show()
         
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     print("Testing.......")
     img = "Image_process/detect_target.jpg"
 
-    run = Mulit_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
+    run = Multi_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
     run.save()
-    
+"""
             
     
         
