@@ -1,6 +1,6 @@
 import sys, os, cv2
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-sys.path.append("C/Users/user/Quick_Search/Image_process")
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+# sys.path.append("C/Users/user/Quick_Search/Image_process")
 import Image_process.Multi_detect as det
 import Image_process.draw as dr
 
