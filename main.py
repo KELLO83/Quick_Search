@@ -6,11 +6,11 @@ from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt5.QtCore import QUrl
-
+import os
 
 
 def main():
-    sys.path.append("C\\Users\\USER\\Desktop\\Quick_Search") # 본인 실행자의 경로를 추가해주세요
+    sys.path.append(os.getcwd()) 
     print("sytem path : ",sys.path)
     from GUI import Ezsearch
     app = QApplication(sys.argv)

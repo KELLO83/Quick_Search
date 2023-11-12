@@ -13,7 +13,7 @@ def get_gui_controller(img_path,category):
         Controller.main_controller.run(img_path,category)
         
     else:
-        print("검색을 취솹니다")
+        print("검색을 취소합니다")
         return False
     
     

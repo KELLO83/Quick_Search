@@ -105,6 +105,8 @@ class MyWindow(QDialog, Ui_Form):
         selected_category = self.category_combobox.currentText()
 
         # if-elif-else 문을 사용하여 Category에 따라 분류
+        
+        # names: ['long-pants', 'long-sleeve', 'short-pants', 'short-sleeve', 'sleeveless'] ---> 상하의 인공지능이 구별하는것.. <메모>
         if selected_category == '신발':
             self.category = 'shoes'
         elif selected_category == '상의':
