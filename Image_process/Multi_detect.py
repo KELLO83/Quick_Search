@@ -7,7 +7,9 @@ import cv2
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from Image_process import filter
+# from Image_process import filter
+import filter
+
 
 class Multi_detect():
     def __init__(self,img,productname:str) -> None:
@@ -59,10 +61,10 @@ class Multi_detect():
             print("locate type {}".format(type(locate)))
             
             self.DataFrame = pd.concat([self.DataFrame,locate]).reset_index(drop=True)
-
+        print("필터링 수행전 DataFrame결과출력...... :",self.DataFrame)
         # 필터링
         self.DataFrame = filter.filter_run(self.productname, self.DataFrame)
-
+        
         print("DataFrame결과출력......")
         print(self.DataFrame)
         self.get_object_location()
@@ -141,7 +143,7 @@ if __name__ == "__main__":
 
     run = Multi_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
-    run.save()
+    #run.save()
 
             
     
