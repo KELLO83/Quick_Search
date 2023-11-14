@@ -7,7 +7,8 @@ import cv2
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from Image_process import filter
+#from Image_process import filter
+import filter
 
 class Multi_detect():
     def __init__(self,img,productname:str) -> None:
@@ -137,7 +138,7 @@ class Multi_detect():
         
 if __name__ == "__main__":
     print("Testing.......")
-    img = "Image_process/detect_target_cs.jpg"
+    img = "Image_process/detect_target.jpg"
 
     run = Multi_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
