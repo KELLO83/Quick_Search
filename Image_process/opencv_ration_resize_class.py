@@ -53,7 +53,7 @@ class resize_img:
         return res_img # 변환결과 반환
                     
 if __name__ == "__main__":
-    rs = resize_img(cv2.imread("crop_dir/3/0.jpg"))
+    rs = resize_img(cv2.imread("crop_dir/0.jpg"))
     new_image = rs.ration_resize(size = (200,200))
     cv2.imshow("new_image",new_image)
     cv2.waitKey(0)

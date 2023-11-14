@@ -8,6 +8,8 @@ from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkRepl
 from PyQt5.QtCore import QUrl
 import os
 
+import Controller.detect_controller as d
+import Controller.img_controller as i
 
 def main():
     sys.path.append(os.getcwd()) 
@@ -23,7 +25,9 @@ def main():
 
 if __name__ == "__main__":
     print("Quick Search 실행합니다....")
-    main()
+    #main()
+    #d.call("Image_process/detect_target.jpg", 'shoes')
+    i.img_controller.resize_con("./crop_dir")
     print("Quick Search 종료합니다....")
     
     

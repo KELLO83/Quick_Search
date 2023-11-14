@@ -7,13 +7,11 @@ import cv2
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-#from Image_process import filter
-import filter
+import Image_process.filter as filter
 
 class Multi_detect():
     def __init__(self,img,productname:str) -> None:
         self.img = img 
-
         self.model_path  = ["Model/Cap.pt",
                             "Model/Shoes.pt",
                             "Model/Clothes.pt"]
@@ -35,7 +33,6 @@ class Multi_detect():
         print("전체 소요시간 ...{}".format(abs(end-init_start)))
 
         self.DataFrame = pd.DataFrame(columns=['xmin', 'ymin', 'xmax', 'ymax', 'confidence', 'class', 'name'])
-        
         self.object_location  = []
         self.object_location_dict ={}
         self.classification = []
@@ -53,17 +50,17 @@ class Multi_detect():
             
             result.print()
             # result.show()
-            
-            
+
             locate = result.pandas().xyxy[0]
             print("locate .... {}".format(locate))
             print("locate type {}".format(type(locate)))
             
             self.DataFrame = pd.concat([self.DataFrame,locate]).reset_index(drop=True)
 
+        print("필터링 수행전 DataFrame결과출력...... :",self.DataFrame)
         # 필터링
         self.DataFrame = filter.filter_run(self.productname, self.DataFrame)
-
+        
         print("DataFrame결과출력......")
         print(self.DataFrame)
         self.get_object_location()
@@ -101,20 +98,7 @@ class Multi_detect():
         else:
             os.mkdir("./label_result")
 
-
-        save_path = "./label_result/"
-
-        # label_result 안에 폴더 만들던 코드
-        #count = 0
-        #while True:
-        #    if os.path.isdir("./label_result/{}".format(count)):
-        #        count += 1
-        #    else:
-        #        print("Generate Folder : ./label_result/{}".format(count))
-        #        os.makedirs("./label_result/{}".format(count))
-        #        save_path = "./label_result/{}/".format(count)
-        #        break
-      
+        save_path = "./label_result/"      
         
         buffer.to_csv("{}/output.txt".format(save_path),index=False,header=False,sep=" ")
         
