@@ -10,6 +10,11 @@ class crop :
         self.path = self.confirmation_dir()
         self.crop_image = []
         self.location = []
+        
+        if self.img is None:
+            raise FileNotFoundError("Image file not found.")
+        if not os.path.isfile(self.label_txt_path):
+            raise FileExistsError("Label txt file not found.")
 
         # txt 파일 내용 존재 여부 확인 후 location 리스트에 좌표값 추가(2차원 리스트) # 수정필요..... 10/27 txt파일형식 xmin ymin xmax ymax 이후 그런 값들이 차례로 행으로 출력됨...
         if (os.path.isfile(self.label_txt_path)):
@@ -34,24 +39,14 @@ class crop :
         print(f"Save Image path : {self.path}")
 
     def confirmation_dir(self) -> str:
-        count = 1
         if os.path.isdir("./crop_dir"):
             pass
         else:
             os.mkdir("./crop_dir")
             # 기존에 사용한 크롭이미지 삭제 코드 추가하기
 
-        return "./crop_dir/"
+        return "./crop_dir"
     
-#        while True:
-#            if os.path.isdir("./crop_dir/{}".format(count)):
-#                count += 1
-#            else:
-#                print("Generate Folder : ./crop_dir/{}".format(count))
-#                os.makedirs("./crop_dir/{}".format(count))
-#                save_path = "./crop_dir/{}/".format(count)
-#                return  save_path
-
     def __str__ (self) ->None:
         for key,value in self.dict_location.items():
             print("key : {} , value : {}".format(key,value))
@@ -61,7 +56,7 @@ if __name__ == "__main__":
     # key : 0 , value : [208.87770080566406, 336.2223815917969, 922.2138061523438, 1004.7623901367188]
     #key : 1 , value : [348.85107421875, 425.29705810546875, 877.2025146484375, 971.7975463867188]
     # n[0, 0.581, 0.3489795918367347, 0.53, 0.2108843537414966]
-    crop_object = crop(cv2.imread("C:/Users/user/Quick_Search/Image_process/detect_target.jpg"), "C:/Users/user/Quick_Search/label_result/output.txt")
+    crop_object = crop(cv2.imread("Image_process/detect_target_cs.jpg"), "label_result/output.txt")
     crop_object.crop()
 
     print("Crop success!")

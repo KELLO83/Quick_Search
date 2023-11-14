@@ -135,14 +135,14 @@ class Multi_detect():
         plt.imshow(img_rgb) 
         plt.show()
         
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     print("Testing.......")
-    img = "Image_process/detect_target.jpg"
+    img = "Image_process/detect_target_cs.jpg"
 
     run = Multi_detect(img,'shoes') # 찾고자하는 상품명도 인자로 받아서 DataFrame에서 Name으로 필터링해주면됨
     run.detect_run()
     run.save()
-"""
+
             
     
         
