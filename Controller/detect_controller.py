@@ -24,19 +24,20 @@ class detect_con:
         xylist = draw.draw_run()
         result_list = []
 
+        h = int(cv2.imread("./Image_process/detect_target.jpg").shape[1])
+
         # draw 결과값(2차원리스트) 튜플 -> min max 순서에 맞게 리스트화
         for i in range(len(xylist)):
             for j in range(len(xylist[i])):
                 xy = str(xylist[i][j])[1:-1]
                 xy = xy.replace(", ", " ").split()
                 
-                # xmin ymax xmax ymin -> xmin ymin xmax ymax
                 if j == 0:
                     xmin = xy[0]
-                    ymax = xy[1]
+                    ymin = xy[1]
                 elif j == 1:
                     xmax = xy[0]
-                    ymin = xy[1]
+                    ymax = xy[1]
 
             result_list.append([xmin, ymin, xmax, ymax])
         

@@ -26,8 +26,15 @@ def main():
 if __name__ == "__main__":
     print("Quick Search 실행합니다....")
     #main()
-    #d.call("Image_process/detect_target.jpg", 'shoes')
-    i.img_controller.resize_con("./crop_dir")
+    
+    # 이미지 resize 컨트롤러 테스팅 코드
+    #i.img_controller.resize_con("./crop_dir")
+    
+    # 객체탐지 컨트롤러(객체탐지+사용자크롭) 테스팅 코드
+    #d.call("Image_process/detect_target.jpg", 'shoes');
+    
+    #크롭 테스팅 코드
+    #i.img_controller.crop_con("./Image_process/detect_target.jpg", "./label_result/output.txt")
     print("Quick Search 종료합니다....")
     
     
