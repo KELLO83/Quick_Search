@@ -19,6 +19,7 @@ class draw:
         if event == cv2.EVENT_LBUTTONDOWN:
             self.drawing = True
             self.rect_endpoint = [(x,y)]
+            print("self.rect_endpoint : ",self.rect_endpoint)
             
         elif event == cv2.EVENT_MOUSEMOVE:
             if self.drawing is True:
@@ -105,9 +106,9 @@ class draw:
             
 
                    
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     PATH = "Image_process/detect_target.jpg"
     draw = draw(cv2.imread(PATH))
     xylist = draw.draw_run()
 
-    print("결과 2차원 리스트 : ",xylist)"""
+    print("결과 2차원 리스트 : ",xylist)

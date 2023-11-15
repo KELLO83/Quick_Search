@@ -41,6 +41,7 @@ class MyWindow(QDialog, Ui_Form):
         
         # Category ComboBox
         self.category_combobox = self.findChild(QComboBox, 'category')
+        self.category_combobox.addItem('None')
         self.category_combobox.currentIndexChanged.connect(self.update_category)
 
         # QLabel for displaying category
@@ -95,6 +96,16 @@ class MyWindow(QDialog, Ui_Form):
     def search_image(self):
         # 검색 버튼을 눌렀을 때 이미지 URL을 이용하여 이미지를 로드
         # self.load_image_from_url(self.image_url)
+        
+        if self.category_combobox.currentText() == 'None':
+            QMessageBox.about(self, "카테고리 선택", "카테고리를 선택하세요")
+            print("카테고리를 선택하세요")
+            return False
+        if self.image_path == "":
+            QMessageBox.about(self, "이미지 업로드", "이미지를 업로드 하세요")
+            print("이미지를 업로드 하세요")
+            return False
+        
         flag = Controller.gui_controller.get_gui_controller(self.image_path,self.category) #GUI 컨틀롤러 호출 <송준현>
         
         # flag  true 이면 정상실행 false이면 다시 실행 일단 보류
