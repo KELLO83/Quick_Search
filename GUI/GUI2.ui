@@ -347,7 +347,7 @@ p, li { white-space: pre-wrap; }
      <string>검색하기</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="parchase_button">
+   <widget class="QPushButton" name="purchase_button">
     <property name="geometry">
      <rect>
       <x>140</x>
