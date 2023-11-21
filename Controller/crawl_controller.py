@@ -32,8 +32,8 @@ def crawl_sitename(object_name):
     print("\n[[크롤링 결과]]\n", result)
     return result
 
-
-
-
-if __name__ == "__main__":
-    pass
+# 메인에서 이 함수만 실행하면 됨
+def crawling(img_path):
+    product_name = crawl_objectname(img_path)
+    prod_info = crawl_sitename(product_name)
+    return prod_info
