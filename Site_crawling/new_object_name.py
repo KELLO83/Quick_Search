@@ -67,9 +67,11 @@ def upload_image_and_extract_keyword(image_path) -> str:
         
     print(real_name)
     
-    return real_name
-                
+    
     driver.quit()  # WebDriver 종료
+    
+    return real_name
+            
 if __name__ == "__main__":
     print("TEST CODE 입니다 ....")
     img_path = "C:/Users/user/Quick_Search/Site_crawling/cap.jpg"  # 이미지경로 TEST PATH
