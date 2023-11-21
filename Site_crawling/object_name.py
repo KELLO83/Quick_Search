@@ -27,13 +27,13 @@ def upload_image_and_extract_keyword(image_path) -> str:
     driver.quit()  # WebDriver 종료
     return keyword
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     print("TEST CODE 입니다 ....")
-    img_path = "C:\\Users\\user\\Quick_Search\\Site_crawling\\target.jpg"  # 이미지경로 TEST PATH
+    img_path = "C:\\Users\\user\\Quick_Search\\crop_dir\\air.png"  # 이미지경로 TEST PATH
     if os.path.isfile(img_path):
         print("File Exist")
     else:
         print("File Not Exist")
         raise  FileNotFoundError
     keyword = upload_image_and_extract_keyword(img_path) # Site_crawling/target.jpg
-    print(keyword)"""
+    print(keyword)

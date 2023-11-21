@@ -43,12 +43,9 @@ if __name__ == "__main__":
 
     # 크롤링 테스팅 코드
     #crop_img_path = "C:\\Users\\user\\Quick_Search\\crop_dir\\0.png"
-    #print("TEST CODE 입니다 ....")
-    #ob_name = c.crawl_objectname(crop_img_path)
-    #result = c.crawl_sitename(ob_name)
+    #prod_info = c.crawling(crop_img_path)
 
     # i.img_controller.crop_con("./Image_process/detect_target.jpg", "./label_result/output.txt")
     print("Quick Search 종료합니다....")
-    
     
     
