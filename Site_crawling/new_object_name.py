@@ -16,6 +16,8 @@ def upload_image_and_extract_keyword(image_path) -> str:
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get("https://www.google.com/")
 
+    time.sleep(5)
+    
     lens_icon = driver.find_element(By.CSS_SELECTOR, "svg.Gdd5U")
     lens_icon.click()
     time.sleep(1)
@@ -74,7 +76,7 @@ def upload_image_and_extract_keyword(image_path) -> str:
             
 if __name__ == "__main__":
     print("TEST CODE 입니다 ....")
-    img_path = "C:/Users/user/Quick_Search/Site_crawling/cap.jpg"  # 이미지경로 TEST PATH
+    img_path = "C:\\Users\\user\\Quick_Search\\crop_dir\\0.jpg"  # 이미지경로 TEST PATH
     if os.path.isfile(img_path):
         print("File Exist")
     else:
