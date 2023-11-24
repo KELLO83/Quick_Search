@@ -56,19 +56,51 @@ def upload_image_and_extract_keyword(image_path) -> str:
         print("바로검색 불가능")
     
     
+    div_tag = driver.find_element(By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/c-wiz/div/div[2]/c-wiz/div/div/div/div[2]/div[1]/div/div/div/div[1]/div/div/div')
+    style = div_tag.get_attribute('style')
+    style_dict = dict(item.split(': ') for item in style.split('; ') if item)
+    lens_grid_column_count = style_dict.get('--lens-grid-column-count')
+    
+    elements = driver.find_elements(By.CSS_SELECTOR, 'div.aah4tc > div:nth-child(1) > div.G19kAf.ENn9pd')
+    count = len(elements)
+    
+    elemnts = driver.find_elements(By.CSS_SELECTOR, 'div.aah4tc > div:nth-child(2) > div.G19kAf.ENn9pd')
+    count2 = len(elements)
+    
     # 키워드 추출
     test = WebDriverWait(driver, 10).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.Vd9M6')))
-    #test = driver.find_elements(By.CSS_SELECTOR,'div.Vd9M6')
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.Vd9M6'))) #전체 60개
+    #test = driver.find_elements(By.CSS_SELECTOR,'div.Vd9M6') 
+    new_list = []
+
     filter_list = []
+
+    #new_list.append(test[0:9])
+    #ew_list.append(test[count:count+9])
     
-    for i in test:
-        try:
-            span = i.find_element(By.CSS_SELECTOR,'span.DdKZJb')
-            filter_list.append(i)
-        except:
-            pass
+    for i in range(10):
+        new_list.append(test[i])
+        new_list.append(test[count + i])
+            
+    for i in new_list:
+            try:
+                span = i.find_element(By.CSS_SELECTOR,'span.DdKZJb')
+                filter_list.append(i) # 60개중에서 상품태그가 붙어있는것만 저장
+            except:
+                pass
+    
+    # for i in new_list:
+    #     try:
+    #         span = i.find_element(By.CSS_SELECTOR,'span.DdKZJb')
+    #         filter_list.append(i) # 60개중에서 상품태그가 붙어있는것만 저장
+    #     except:
+    #         pass
         
+    print(filter_list)
+        
+        
+        
+    
     proudct_name = []
     for i in filter_list:
         try:
@@ -86,7 +118,7 @@ def upload_image_and_extract_keyword(image_path) -> str:
         
     print(real_name)
     
-    with open("a.txt",'w',encoding='UTF-8') as f:
+    with open("b.txt",'w',encoding='UTF-8') as f:
         for i in real_name:
             f.write(i)
             f.write("\n")
@@ -95,9 +127,11 @@ def upload_image_and_extract_keyword(image_path) -> str:
     
     return real_name
             
+    
+
 if __name__ == "__main__":
     print("TEST CODE 입니다 ....")
-    img_path = "C:\\Users\\user\\Quick_Search\\crop_dir\\0.jpg"  # 이미지경로 TEST PATH
+    img_path = "C:/Users/user/Quick_Search/Site_crawling/cap.jpg"  # 이미지경로 TEST PATH
     if os.path.isfile(img_path):
         print("File Exist")
     else:

@@ -1,5 +1,5 @@
 import os
-import Site_crawling.object_name as co
+import Site_crawling.Second_object_name as co
 import Site_crawling.site_name as cs
 
 def crawl_objectname(img_path):
