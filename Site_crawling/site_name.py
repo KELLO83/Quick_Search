@@ -16,6 +16,8 @@ class ProductCrawler:
         
         # 사이트별 정보 및 요소 이름 정의
         self.websites_data = {
+            
+            
             "크림": {
                 "url": "https://kream.co.kr/search?keyword= &tab=products",
                 "search_selector": "input.input_search.show_placeholder_on_focus",
@@ -36,6 +38,20 @@ class ProductCrawler:
                 "link_selector": "a.img-block",
                 "no_result_selector": "div.search-nr-case",
             },
+            
+            
+            
+            "danawa": {
+                "url": "https://www.danawa.com/",
+                "search_selector": "input#AKCSearch.search__input",
+                "brand_selector": "#productItem6209625 > div > div.prod_info > p > a > b:nth-child(1)",
+                "product_name_selector": "a.click_log_product_standard_title_",
+                "price_selector": "p.price_sect",
+                "imgurl_selector": "#thumbLink_6209625 > img",
+                "link_selector": "a.click_log_product_standard_title_",
+                "no_result_selector": "div#nosearchArea"
+            },
+            
             "11번가": {
                 "url": "https://www.11st.co.kr/",
                 "search_selector": "input.search_text",

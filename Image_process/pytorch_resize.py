@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 
 def resize(img_path , widht , height):
     img =  PIL.Image.open(img_path)
+    width = width * 1.3
+    height = height * 1.3
+    
+    
     
     preprocess = T.Compose([
         T.Resize((widht,height))
