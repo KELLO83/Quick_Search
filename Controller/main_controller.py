@@ -1,7 +1,7 @@
 import Controller.detect_controller as det
 import copy
 import Controller.img_controller 
-import crawl_controller as crawl
+
 
 
 
