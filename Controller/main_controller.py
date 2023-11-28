@@ -1,14 +1,18 @@
 import Controller.detect_controller as det
 import copy
 import Controller.img_controller 
+import crawl_controller as crawl
+import os
+import sqlite3
 
-
+s_name =[]
+s_price = []
+s_purchase_url = []
+s_image_url = []
 
 
 def get_imageinformation(img_path,category):
     """ GUI 로부터 선택한 사진의 경로와 카테고리를 받아옵니다. """
-
-    
     # names: ['long-pants', 'long-sleeve', 'short-pants', 'short-sleeve', 'sleeveless'] ---> 상하의 인공지능이 구별하는것.. <메모>
     top = ['long-sleeve','short-sleeve','sleeveless']
     bottom = ['long-pants','short-pants']
@@ -26,10 +30,22 @@ def get_imageinformation(img_path,category):
     image_preprocessing(img_path)
 
 def image_preprocessing(img_path):
-    preprocee = Controller.img_controller.img_controller(img_path , "./crop_dir/","./label_result/output.txt")
-    preprocee.resize_con()
-    preprocee.crop_con()
+    preprocess = Controller.img_controller.img_controller(img_path , "./crop_dir/","./label_result/output.txt")
+    preprocess.resize_con()
+    preprocess.crop_con()
     print("이미지 전처리 완료")
+
+def crawling():
+    for crop_img in os.listdir("./crop_dir"):
+        img_path = "./crop_dir/" +  crop_img
+
+        name_list = crawl.crawl_objectname(img_path)
+        info = crawl.crawl_sitename(name_list)
+    
+        s_name.append(info['product_name'])
+        s_price.append(info['price'])
+        s_purchase_url.append(info['link'])
+        s_image_url.append(info['imgurl'])
 
 
 if __name__ == "__main__":
@@ -44,12 +60,10 @@ if __name__ == "__main__":
     image_preprocessing("Image_process/detect_target.jpg")
 
     
+    """sys.path.append(os.getcwd()) 
+    from GUI import Ezsearch
+    app = QApplication(sys.argv)
+    myWindow = Ezsearch.MyWindow()
+    myWindow.show()
+    sys.exit(app.exec_())"""
 
-
-
-    
-    
-    
-    
-    
-    
