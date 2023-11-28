@@ -15,6 +15,3 @@ def get_gui_controller(img_path,category):
         print("검색을 취소합니다")
         return False
     
-    
-
-    
