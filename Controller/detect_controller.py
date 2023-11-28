@@ -1,6 +1,9 @@
-import os, cv2
+import os, cv2, sys
+sys.path.append("C:\\Users\\user\\Quick_Search")
 import Image_process.Multi_detect as det
 import Image_process.draw as dr
+
+
 
 # 객체 탐지 컨트롤러
 class detect_con:

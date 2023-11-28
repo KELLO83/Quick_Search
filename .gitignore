@@ -22,9 +22,6 @@
 *.cfg
 *.csv
 
-
-/label_result/*
-
 !setup.cfg
 !cfg/yolov3*.cfg
 

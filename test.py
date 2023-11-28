@@ -24,21 +24,21 @@ if __name__ == "__main__":
     print("Quick Search 실행합니다....")
     #main()
 
-    # 객체탐지 컨트롤러(객체탐지+사용자크롭) 테스팅 코드
-    #d.call("Image_process/detect_target.jpg", 'shoes');
+    #객체탐지 컨트롤러(객체탐지+사용자크롭) 테스팅 코드
+    d.call("./testimg.jpg", 'shoes');
     
-    # 크롭 테스팅 코드
-    #cropping = i.img_controller("./Image_process/detect_target.jpg","C:\\Users\\user\\Quick_Search\\crop_dir", "./label_result/output.txt")
-    #cropping.crop_con()
+    #크롭 테스팅 코드
+    cropping = i.img_controller("./testimg.jpg","C:\\Users\\user\\Quick_Search\\crop_dir", "./label_result/output.txt")
+    cropping.crop_con()
     
-    # 이미지 resize 컨트롤러 테스팅 코드 resize
+    #이미지 resize 컨트롤러 테스팅 코드 resize
     #cropping.resize_con()
 
-    # 크롤링 테스팅 코드
+    #크롤링 테스팅 코드
     #crop_img_path = "C:\\Users\\user\\Quick_Search\\crop_dir\\0.jpg"
     #prod_info = c.crawling(crop_img_path)
 
-    # i.img_controller.crop_con("./Image_process/detect_target.jpg", "./label_result/output.txt")
+    #i.img_controller.crop_con("./Image_process/detect_target.jpg", "./label_result/output.txt")
     print("Quick Search 종료합니다....")
     
     

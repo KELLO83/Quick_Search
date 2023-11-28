@@ -5,10 +5,10 @@ import crawl_controller as crawl
 import os
 import sqlite3
 
-name =[]
-price = []
-purchase_url = []
-image_url = []
+s_name =[]
+s_price = []
+s_purchase_url = []
+s_image_url = []
 
 
 def get_imageinformation(img_path,category):
@@ -42,10 +42,10 @@ def crawling():
         name_list = crawl.crawl_objectname(img_path)
         info = crawl.crawl_sitename(name_list)
     
-        name.append(info['product_name'])
-        price.append(info['price'])
-        purchase_url.append(info['link'])
-        image_url.append(info['imgurl'])
+        s_name.append(info['product_name'])
+        s_price.append(info['price'])
+        s_purchase_url.append(info['link'])
+        s_image_url.append(info['imgurl'])
 
 
 if __name__ == "__main__":

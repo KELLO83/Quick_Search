@@ -44,3 +44,7 @@ def crawling(img_path):
     product_name = crawl_objectname(img_path)
     prod_info = crawl_sitename(product_name)
     return prod_info
+
+
+if __name__ == "__main__":
+    crawl_objectname
