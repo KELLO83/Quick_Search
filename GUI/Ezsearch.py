@@ -6,65 +6,43 @@ from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkRepl
 from PyQt5.QtCore import QUrl, Qt
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QTextBrowser
+import Controller.gui_controller
 
 # UI 파일 로드
-ui_file = "GUI2.ui"
+ui_file = "GUI/GUI2.ui"
 Ui_Form, QtBaseClass = uic.loadUiType(ui_file)
-
+     
 # Class 생성
 class MyWindow(QDialog, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
-        # 데이터베이스 연결
+        
+        # 데이터베이스 연결 민규
         self.db = QSqlDatabase.addDatabase("QSQLITE")
-        self.db.setDatabaseName("E:/교통대/캡스톤/GUI/EzSearch.db")
+        self.db.setDatabaseName("EzSearch.db")
 
-        if not self.db.open():
+        if not self.db.open():#민규
             QMessageBox.critical(self, "에러", "데이터베이스 연결 오류", QMessageBox.Ok)
             sys.exit(1)
 
-        # 'exit_button' 찾기
-        self.exit_button = self.findChild(QPushButton, 'exit_button')
-
-        # 이미지 URL을 저장할 변수
-        self.image_url = QUrl("https://cdn.011st.com/11dims/resize/320/11src/dl/v2/3/7/5/5/4/6/bTGgM/3053375546_150614628_05.jpg")
-
-        # 검색하기 버튼 
-        self.search_button = self.findChild(QPushButton, 'search_button')
-
-        # 구매하기 버튼 
-        self.purchase_button = self.findChild(QPushButton, 'purchase_button')
-        self.purchase_button.clicked.connect(self.show_purchase_popup)
-
-        # 'exit_button' 찾기
-        self.exit_button = self.findChild(QPushButton, 'exit_button')
-        self.exit_button.clicked.connect(self.close_application)
-
-        # 네트워크 엑세스
-        self.manager = QNetworkAccessManager()
-
-        # 카테고리 변수 초기화
-        self.category = None
-
-        # 데이터베이스에서 불러온 데이터를 저장할 객체
+        # 데이터베이스에서 불러온 데이터를 저장할 객체 민규
         self.database_data = None
 
-        # 데이터베이스에서 데이터 불러오기
-        self.load_data_from_database()
+        # 데이터베이스에서 데이터 불러오기 민규
+        self.load_data_from_database()    
 
-        # 이미지 
+        # 이미지 민규
         self.image = self.findChild(QLabel, 'image')
 
-        # 상품명
+        # 상품명 민규
         self.Pname = self.findChild(QTextBrowser, 'Pname')
 
-        # 가격
+        # 가격 민규
         self.Pprice = self.findChild(QTextBrowser, 'Pprice')
 
-    # 데이터베이스에서 데이터 불러오기
-    def load_data_from_database(self):
+        # 데이터베이스에서 데이터 불러오기 
+    def load_data_from_database(self):#민규
         query = QSqlQuery("SELECT seq, category, name, price, purchase_url FROM Ezsearch", self.db)
 
         # 데이터를 리스트로 저장
@@ -74,7 +52,7 @@ class MyWindow(QDialog, Ui_Form):
         self.display_data_from_database()
 
     # 데이터를 UI에 출력
-    def display_data_from_database(self):
+    def display_data_from_database(self):#민규
         # 데이터를 출력할 테이블 모델 생성
         table_model = QSqlTableModel(self)
         table_model.setTable("Ezsearch")  # 테이블 이름 설정
@@ -116,7 +94,7 @@ class MyWindow(QDialog, Ui_Form):
         self.database.itemClicked.connect(self.show_selected_data)
 
     # 테이블 위젯의 특정 셀이 클릭되었을 때 호출될 슬롯
-    def show_selected_data(self, item):
+    def show_selected_data(self, item):#민규
         # item 변수를 통해 클릭된 셀의 정보에 접근 가능
         row = item.row()
         col = item.column()
@@ -151,44 +129,70 @@ class MyWindow(QDialog, Ui_Form):
             # 이미지 로딩
             self.load_image_from_url(QUrl(purchase_url))
 
-    # 이미지 URL에서 이미지 로드
-    def load_image_from_url(self, url):
-        request = QNetworkRequest(url)
-        reply = self.manager.get(request)
-        reply.finished.connect(lambda: self.on_image_load_finished(reply))
 
-    # 이미지 로드 완료 후 처리
-    def on_image_load_finished(self, reply):
-        if reply.error() == QNetworkReply.NoError:
-            data = reply.readAll()
-            pixmap = QPixmap()
-            pixmap.loadFromData(data)
-            self.image.setPixmap(pixmap)
+
+        # 'exit_button' 찾기
+        self.exit_button = self.findChild(QPushButton, 'exit_button')
+        self.exit_button.clicked.connect(self.close_application)#민규
+
+        # 'exit_button'이 정의되었는지 확인 후 이벤트 연결
+        if self.exit_button:
+            self.exit_button.clicked.connect(self.exit_sys)
         else:
-            print("이미지 로딩 중 오류 발생:", reply.errorString())
+            print("Warning: 'exit_button' not found in the UI form.")
 
-    
+        # 이미지 업로드 버튼 이벤트 연결
+        self.image_upload_button = self.findChild(QPushButton, 'image_upload')
+        self.image_upload_button.clicked.connect(self.upload_image)
 
-    # Purchase 팝업창 표시
-    def show_purchase_popup(self):
-        if self.category is not None:
-            category_info = f"카테고리: {self.category}"
-            name_info = f"상품명: {self.Pname.toPlainText()}"
-            price_info = f"가격: {self.Pprice.toPlainText()}"  # Pprice를 수정
+        # 네트워크 엑세스
+        self.manager = QNetworkAccessManager()
+       
 
-            popup_msg = f"{category_info}\n{name_info}\n{price_info}"
+        # 이미지를 표시할 QLabel
+        self.image_label = self.findChild(QLabel, 'image')
 
-            # 팝업 창 표시
-            popup = QMessageBox()
-            popup.setWindowTitle("구매 정보")
-            popup.setText(popup_msg)
-            popup.exec_()
-    #종료 이벤트 처리
-    def close_application(self):
-        reply = QMessageBox.question(self, '종료 확인', '종료하시겠습니까?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        # 이미지 파일 경로를 저장할 변수
+        self.image_path = ""
 
-        if reply == QMessageBox.Yes:
-            QApplication.quit()
+        # 파일 디렉터리 패스 
+        self.test2_label = self.findChild(QLabel, 'test2')
+        
+        # Category ComboBox
+        self.category_combobox = self.findChild(QComboBox, 'category')
+        self.category_combobox.addItem('None')
+        self.category_combobox.currentIndexChanged.connect(self.update_category)
+
+        # QLabel for displaying category
+        self.test1_label = self.findChild(QLabel, 'test1')
+       
+        # 이미지 URL을 저장할 변수
+        self.image_url = QUrl("https://cdn.011st.com/11dims/resize/320/11src/dl/v2/3/7/5/5/4/6/bTGgM/3053375546_150614628_05.jpg")
+
+        # QPushButton for searching
+        self.search_button = self.findChild(QPushButton, 'search_button')
+        if self.search_button:
+            self.search_button.clicked.connect(self.search_image)
+        
+        # QNetworkAccessManager
+        self.manager = QNetworkAccessManager()
+
+    # ========== 시스템 종료 ==========
+    def exit_sys(self):#민규
+        exit_msg = "프로그램을 종료 하겠습니까?"
+        ans = QMessageBox.question(self, "프로그램 종료", exit_msg, QMessageBox.Yes | QMessageBox.No)
+        if ans == QMessageBox.Yes:
+            self.close()
+
+    # ========== 이미지 업로드 ==========
+    def upload_image(self):
+        fname, _ = QFileDialog.getOpenFileName(self, '이미지 업로드', '', 'Image Files (*.png *.jpg *.bmp)')
+        if fname:
+            pixmap = QPixmap(fname)
+            self.image_label.setPixmap(pixmap)
+            self.image_path = fname
+            self.test2_label.setText(self.image_path)
+
     # 애플리케이션 종료 이벤트 처리
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '종료 확인', '종료하시겠습니까?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -196,8 +200,64 @@ class MyWindow(QDialog, Ui_Form):
         if reply == QMessageBox.Yes:
             event.accept()
         else:
-            event.ignore()
-            
+            event.ignore()        
+        
+
+    # ========== 이미지 URL에서 이미지 로드 ==========
+    def load_image_from_url(self, url):
+        request = QNetworkRequest(url)
+        reply = self.manager.get(request)
+
+        reply.finished.connect(lambda: self.on_image_load_finished(reply))
+
+    # ========== 이미지 로드 완료 후 처리 ==========
+    def on_image_load_finished(self, reply):
+        if reply.error() == QNetworkReply.NoError:
+            data = reply.readAll()
+            pixmap = QPixmap()
+            pixmap.loadFromData(data)
+            self.image_label.setPixmap(pixmap)
+        else:
+            print("Error loading image:", reply.errorString())
+
+    # ========== 이미지 검색 ==========
+    def search_image(self):
+        # 검색 버튼을 눌렀을 때 이미지 URL을 이용하여 이미지를 로드
+        # self.load_image_from_url(self.image_url)
+        
+        if self.category_combobox.currentText() == 'None':
+            QMessageBox.about(self, "카테고리 선택", "카테고리를 선택하세요")
+            print("카테고리를 선택하세요")
+            return False
+        if self.image_path == "":
+            QMessageBox.about(self, "이미지 업로드", "이미지를 업로드 하세요")
+            print("이미지를 업로드 하세요")
+            return False
+        
+        flag = Controller.gui_controller.get_gui_controller(self.image_path,self.category) #GUI 컨틀롤러 호출 <송준현>
+        
+        # flag  true 이면 정상실행 false이면 다시 실행 일단 보류
+        
+        
+    # ========== Category 업데이트 ==========
+    def update_category(self):
+        selected_category = self.category_combobox.currentText()
+
+        # if-elif-else 문을 사용하여 Category에 따라 분류
+        
+        # names: ['long-pants', 'long-sleeve', 'short-pants', 'short-sleeve', 'sleeveless'] ---> 상하의 인공지능이 구별하는것.. <메모>
+        if selected_category == '신발':
+            self.category = 'shoes'
+        elif selected_category == '상의':
+            self.category = 'top'
+        elif selected_category == '하의':
+            self.category = 'bottom'
+        elif selected_category == '모자':
+            self.category = 'cap'
+        else:
+            self.category = 'unknown'
+
+        self.test1_label.setText(self.category)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
